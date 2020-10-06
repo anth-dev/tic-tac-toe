@@ -40,8 +40,15 @@ class GameBoard
 
     if (a3 && b3) && (b3 && c3)
       puts "#{a3.owner} is the winner!" if (a3.owner == b3.owner) && (b3.owner == c3.owner)
+    end
 
-      # code diagonal solutions
+    if (a1 && b2) && (b2 && c3)
+      puts "#{a1.owner} is the winner!" if (a1.owner == b2.owner) && (b2.owner == c3.owner)
+    end
+
+    if (a3 && b2) && (b2 && c1)
+      puts "#{a3.owner} is the winner!" if (a3.owner == b2.owner) && (b2.owner == c1.owner)
+    end
   end
 end
 
