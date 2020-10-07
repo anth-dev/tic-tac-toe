@@ -3,7 +3,7 @@
 # Generate a gameboard to play on.
 class GameBoard
   attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
-  attr_reader :player, :game_over
+  attr_reader :player
 
   def initialize
     @a1 = nil
@@ -15,14 +15,13 @@ class GameBoard
     @c1 = nil
     @c2 = nil
     @c3 = nil
-    @game_over = false
     @player = select_random_player
   end
 
   def display_board
     system 'clear'
 
-    board = %Q(
+    board = %(
     #{a1.nil? ? "a1" : a1.owner} | #{b1.nil? ? "b1" : b1.owner} | #{c1.nil? ? "c1" : c1.owner}
     ------------
     #{a2.nil? ? "a2" : a2.owner} | #{b2.nil? ? "b2" : b2.owner} | #{c2.nil? ? "c2" : c2.owner}
@@ -49,12 +48,28 @@ class GameBoard
       @a1 = Token.new(player)
     when 'a2'
       @a2 = Token.new(player)
+    when 'a3'
+      @a3 = Token.new(player)
+    when 'b1'
+      @b1 = Token.new(player)
+    when 'b2'
+      @b2 = Token.new(player)
+    when 'b3'
+      @b3 = Token.new(player)
+    when 'c1'
+      @c1 = Token.new(player)
+    when 'c2'
+      @c2 = Token.new(player)
+    when 'c3'
+      @c3 = Token.new(player)
     end
+    check_for_win
+    check_for_draw
   end
 
   def swap_players
     if @player == 'X '
-      @player = 'Y '
+      @player = 'O '
     else
       @player = 'X '
     end
@@ -95,18 +110,21 @@ class GameBoard
     end
   end
 
+  def check_for_draw
+    if a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
+      puts "It's a draw!"
+      exit
+    end
+  end
+
   def declare_winner(the_winner)
     puts "#{the_winner} is the winner!"
-    @game_over = true
+    exit
   end
 
   def select_random_player
     result = rand(1..2)
     result == 1 ? 'X ' : 'O '
-  end
-
-  def game_over?
-    @game_over
   end
 end
 
@@ -122,6 +140,7 @@ end
 
 my_board = GameBoard.new
 my_board.take_turn
+
 # # Generate a gameboard.
 # my_board = GameBoard.new
 
