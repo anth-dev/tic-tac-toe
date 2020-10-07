@@ -22,11 +22,11 @@ class GameBoard
     system 'clear'
 
     board = %(
-    #{a1.nil? ? "a1" : a1.owner} | #{b1.nil? ? "b1" : b1.owner} | #{c1.nil? ? "c1" : c1.owner}
+    #{a1.nil? ? 'a1' : a1.owner} | #{b1.nil? ? 'b1' : b1.owner} | #{c1.nil? ? 'c1' : c1.owner}
     ------------
-    #{a2.nil? ? "a2" : a2.owner} | #{b2.nil? ? "b2" : b2.owner} | #{c2.nil? ? "c2" : c2.owner}
+    #{a2.nil? ? 'a2' : a2.owner} | #{b2.nil? ? 'b2' : b2.owner} | #{c2.nil? ? 'c2' : c2.owner}
     ------------
-    #{a3.nil? ? "a3" : a3.owner} | #{b3.nil? ? "b3" : b3.owner} | #{c3.nil? ? "c3" : c3.owner}
+    #{a3.nil? ? 'a3' : a3.owner} | #{b3.nil? ? 'b3' : b3.owner} | #{c3.nil? ? 'c3' : c3.owner}
     )
     puts board
   end
@@ -42,6 +42,7 @@ class GameBoard
     take_turn
   end
 
+  # Make it so it checks if the spot is free.
   def handle_placement(choice)
     case choice
     when 'a1'
@@ -68,11 +69,11 @@ class GameBoard
   end
 
   def swap_players
-    if @player == 'X '
-      @player = 'O '
-    else
-      @player = 'X '
-    end
+    @player = if @player == 'X '
+                'O '
+              else
+                'X '
+              end
   end
 
   # Put all the possible win conditions in an if statements.
@@ -111,10 +112,10 @@ class GameBoard
   end
 
   def check_for_draw
-    if a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
-      puts "It's a draw!"
-      exit
-    end
+    return unless a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
+
+    puts "It's a draw!"
+    exit
   end
 
   def declare_winner(the_winner)
@@ -137,28 +138,5 @@ class Token
   end
 end
 
-
 my_board = GameBoard.new
 my_board.take_turn
-
-# # Generate a gameboard.
-# my_board = GameBoard.new
-
-# # Check if nil is returned by an empty space. Yes!
-# p my_board.a1.nil?
-
-# # Player X picks 'a1'. The space at the end is for the display.
-# my_board.a1 = Token.new('X ')
-
-# # Verify we can check the owner of the token on the gameboard.
-# p my_board.a1.owner
-
-# # Place tokens on a2 and a3. (a1 has been already placed)
-# my_board.a2 = Token.new('X ')
-# my_board.a3 = Token.new('X ')
-
-# # Run the check for possible win method.
-# my_board.check_for_win
-
-# # Display the player choosen to go first.
-# puts my_board.first_player
