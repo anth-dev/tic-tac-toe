@@ -36,33 +36,33 @@ class GameBoard
     puts "Go Player #{@player}"
     puts 'Enter the spot to place your token.'
     print '>'
-    choice = gets.chomp
-    handle_placement(choice.downcase)
+    handle_placement
     swap_players
     take_turn
   end
 
   # Make it so it checks if the spot is free.
-  def handle_placement(choice)
+  def handle_placement
+    choice = gets.chomp.downcase
     case choice
     when 'a1'
-      @a1 = Token.new(player)
+      @a1.nil? ? @a1 = Token.new(player) : take_turn
     when 'a2'
-      @a2 = Token.new(player)
+      @a2.nil? ? @a2 = Token.new(player) : take_turn
     when 'a3'
-      @a3 = Token.new(player)
+      @a3.nil? ? @a3 = Token.new(player) : take_turn
     when 'b1'
-      @b1 = Token.new(player)
+      @b1.nil? ? @b1 = Token.new(player) : take_turn
     when 'b2'
-      @b2 = Token.new(player)
+      @b2.nil? ? @b2 = Token.new(player) : take_turn
     when 'b3'
-      @b3 = Token.new(player)
+      @b3.nil? ? @b3 = Token.new(player) : take_turn
     when 'c1'
-      @c1 = Token.new(player)
+      @c1.nil? ? @c1 = Token.new(player) : take_turn
     when 'c2'
-      @c2 = Token.new(player)
+      @c2.nil? ? @c2 = Token.new(player) : take_turn
     when 'c3'
-      @c3 = Token.new(player)
+      @c3.nil? ? @c3 = Token.new(player) : take_turn
     end
     check_for_win
     check_for_draw
@@ -119,6 +119,7 @@ class GameBoard
   end
 
   def declare_winner(the_winner)
+    display_board
     puts "#{the_winner} is the winner!"
     exit
   end
