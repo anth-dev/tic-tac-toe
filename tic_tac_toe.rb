@@ -152,10 +152,81 @@ module Winnable
   end
 end
 
+# This module checks if the spot is valid and places tokens owned by each
+# player.
+module Placeable
+  # Refactor handle_placement to abstract the ternarys into separate methods
+  # like was done for the Winnable module.
+  def handle_placement
+    choice = gets.chomp.downcase
+    case choice
+    when 'a1'
+      check_and_place_a1
+    when 'a2'
+      check_and_place_a2
+    when 'a3'
+      check_and_place_a3
+    when 'b1'
+      check_and_place_b1
+    when 'b2'
+      check_and_place_b2
+    when 'b3'
+      check_and_place_b3
+    when 'c1'
+      check_and_place_c1
+    when 'c2'
+      check_and_place_c2
+    when 'c3'
+      check_and_place_c3
+    else
+      take_turn
+    end
+    check_for_win
+    check_for_draw
+  end
+
+  def check_and_place_a1
+    @a1.nil? ? @a1 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_a2
+    @a2.nil? ? @a2 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_a3
+    @a3.nil? ? @a3 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_b1
+    @b1.nil? ? @b1 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_b2
+    @b2.nil? ? @b2 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_b3
+    @b3.nil? ? @b3 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_c1
+    @c1.nil? ? @c1 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_c2
+    @c2.nil? ? @c2 = Token.new(player) : take_turn
+  end
+
+  def check_and_place_c3
+    @c3.nil? ? @c3 = Token.new(player) : take_turn
+  end
+end
+
 # Generate a Tic-Tac-Toe grid to play on.
 class GameBoard
   include Winnable
   include Displayable
+  include Placeable
 
   attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
   attr_reader :player
@@ -183,34 +254,6 @@ class GameBoard
     take_turn
   end
 
-  def handle_placement
-    choice = gets.chomp.downcase
-    case choice
-    when 'a1'
-      @a1.nil? ? @a1 = Token.new(player) : take_turn
-    when 'a2'
-      @a2.nil? ? @a2 = Token.new(player) : take_turn
-    when 'a3'
-      @a3.nil? ? @a3 = Token.new(player) : take_turn
-    when 'b1'
-      @b1.nil? ? @b1 = Token.new(player) : take_turn
-    when 'b2'
-      @b2.nil? ? @b2 = Token.new(player) : take_turn
-    when 'b3'
-      @b3.nil? ? @b3 = Token.new(player) : take_turn
-    when 'c1'
-      @c1.nil? ? @c1 = Token.new(player) : take_turn
-    when 'c2'
-      @c2.nil? ? @c2 = Token.new(player) : take_turn
-    when 'c3'
-      @c3.nil? ? @c3 = Token.new(player) : take_turn
-    else
-      take_turn
-    end
-    check_for_win
-    check_for_draw
-  end
-
   def swap_players
     @player = if @player == 'X '
                 'O '
@@ -219,11 +262,8 @@ class GameBoard
               end
   end
 
-  # Work on refactoring to lower ABC size.
-
   def select_random_player
-    result = rand(1..2)
-    result == 1 ? 'X ' : 'O '
+    rand(1..2) == 1 ? 'X ' : 'O '
   end
 end
 
