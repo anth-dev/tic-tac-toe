@@ -1,10 +1,102 @@
 # frozen_string_literal: true
 
-# bugs: We need to make sure the player is entering a valid spot. You can enter
-# c5 or a10 currently and it just goes to the next player.
+# bugs: If you just type in random letters into the spot selection it will change
+# the player instead of just having you try again.
+
+# This module checks for win condition or draw.
+module Winnable
+  def check_for_vertical_win
+    check_column_one
+    check_column_two
+    check_column_three
+  end
+
+  def check_for_horizontal_win
+    check_row_one
+    check_row_two
+    check_row_three
+  end
+
+  def check_for_diagonal_win
+    check_top_to_bottom
+    check_bottom_to_top
+  end
+
+  def check_column_one
+    return unless a1 && a2 && a3
+
+    declare_winner(a1.owner) if (a1.owner == a2.owner) && (a2.owner == a3.owner)
+  end
+
+  def check_column_two
+    return unless b1 && b2 && b3
+
+    declare_winner(b1.owner) if (b1.owner == b2.owner) && (b2.owner == b3.owner)
+  end
+
+  def check_column_three
+    return unless c1 && c2 && c3
+
+    declare_winner(c1.owner) if (c1.owner == c2.owner) && (c2.owner == c3.owner)
+  end
+
+  def check_row_one
+    return unless a1 && b1 && c1
+
+    declare_winner(a1.owner) if (a1.owner == b1.owner) && (b1.owner == c1.owner)
+  end
+
+  def check_row_two
+    return unless a2 && b2 && c2
+
+    declare_winner(a2.owner) if (a2.owner == b2.owner) && (b2.owner == c2.owner)
+  end
+
+  def check_row_three
+    return unless a3 && b3 && c3
+
+    declare_winner(a3.owner) if (a3.owner == b3.owner) && (b3.owner == c3.owner)
+  end
+
+  def check_top_to_bottom
+    return unless a1 && b2 && c3
+
+    declare_winner(a1.owner) if (a1.owner == b2.owner) && (b2.owner == c3.owner)
+  end
+
+  def check_bottom_to_top
+    return unless a3 && b2 && c1
+
+    declare_winner(a3.owner) if (a3.owner == b2.owner) && (b2.owner == c1.owner)
+  end
+
+  def check_for_win
+    check_for_vertical_win
+    check_for_horizontal_win
+    check_for_diagonal_win
+  end
+
+  # Maybe refactor this into column_one && column_two && column_three and make
+  # the corresponding methods.
+  def check_for_draw
+    return unless a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
+
+    display_board
+    puts "It's a draw!"
+    exit
+  end
+
+  def declare_winner(the_winner)
+    display_board
+    puts "#{the_winner} is the winner!"
+    exit
+  end
+end
 
 # Generate a Tic-Tac-Toe grid to play on.
 class GameBoard
+  include Winnable
+
   attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
   attr_reader :player
 
@@ -79,54 +171,7 @@ class GameBoard
               end
   end
 
-  # Put all the possible win conditions in an if statements.
-  def check_for_win
-    if (a1 && a2) && (a2 && a3)
-      declare_winner(a1.owner) if (a1.owner == a2.owner) && (a2.owner == a3.owner)
-    end
-
-    if (b1 && b2) && (b2 && b3)
-      declare_winner(b1.owner) if (b1.owner == b2.owner) && (b2.owner == b3.owner)
-    end
-
-    if (c1 && c2) && (c2 && c3)
-      declare_winner(c1.owner) if (c1.owner == c2.owner) && (c2.owner == c3.owner)
-    end
-
-    if (a1 && b1) && (b1 && c1)
-      declare_winner(a1.owner) if (a1.owner == b1.owner) && (b1.owner == c1.owner)
-    end
-
-    if (a2 && b2) && (b2 && c2)
-      declare_winner(a2.owner) if (a2.owner == b2.owner) && (b2.owner == c2.owner)
-    end
-
-    if (a3 && b3) && (b3 && c3)
-      declare_winner(a3.owner) if (a3.owner == b3.owner) && (b3.owner == c3.owner)
-    end
-
-    if (a1 && b2) && (b2 && c3)
-      declare_winner(a1.owner) if (a1.owner == b2.owner) && (b2.owner == c3.owner)
-    end
-
-    if (a3 && b2) && (b2 && c1)
-      declare_winner(a3.owner) if (a3.owner == b2.owner) && (b2.owner == c1.owner)
-    end
-  end
-
-  def check_for_draw
-    return unless a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
-    
-    display_board
-    puts "It's a draw!"
-    exit
-  end
-
-  def declare_winner(the_winner)
-    display_board
-    puts "#{the_winner} is the winner!"
-    exit
-  end
+  # Work on refactoring to lower ABC size.
 
   def select_random_player
     result = rand(1..2)
@@ -134,6 +179,7 @@ class GameBoard
   end
 end
 
+# This class generates tokens for players to place.
 class Token
   attr_reader :owner
 
