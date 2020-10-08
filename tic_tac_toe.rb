@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# bugs: If you just type in random letters into the spot selection it will change
-# the player instead of just having you try again.
-
 # This module checks for win condition or draw.
 module Winnable
   def check_for_vertical_win
@@ -123,6 +120,9 @@ class GameBoard
     @player = select_random_player
   end
 
+  # Maybe refactor this into at display module. Also maybe to lower the
+  # ABCs and complexity render each line separate and/or move the ternarys
+  # into a different method.
   def display_board
     system 'clear'
 
@@ -146,7 +146,6 @@ class GameBoard
     take_turn
   end
 
-  # Make it so it checks if the spot is free.
   def handle_placement
     choice = gets.chomp.downcase
     case choice
@@ -168,6 +167,8 @@ class GameBoard
       @c2.nil? ? @c2 = Token.new(player) : take_turn
     when 'c3'
       @c3.nil? ? @c3 = Token.new(player) : take_turn
+    else
+      take_turn
     end
     check_for_win
     check_for_draw
