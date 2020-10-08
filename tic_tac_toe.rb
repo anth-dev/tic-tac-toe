@@ -76,14 +76,24 @@ module Winnable
     check_for_diagonal_win
   end
 
-  # Maybe refactor this into column_one && column_two && column_three and make
-  # the corresponding methods.
   def check_for_draw
-    return unless a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
+    return unless column_one? && column_two? && column_three?
 
     display_board
     puts "It's a draw!"
     exit
+  end
+
+  def column_one?
+    a1 && a2 && a3
+  end
+
+  def column_two?
+    b1 && b2 && b3
+  end
+
+  def column_three?
+    c1 && c2 && c3
   end
 
   def declare_winner(the_winner)
