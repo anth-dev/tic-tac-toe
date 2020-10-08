@@ -1,5 +1,57 @@
 # frozen_string_literal: true
 
+# This module handles displaying the game board.
+module Displayable
+  def display_board
+    system 'clear'
+
+    board = %(
+    #{display_a1} | #{display_b1} | #{display_c1}
+    ------------
+    #{display_a2} | #{display_b2} | #{display_c2}
+    ------------
+    #{display_a3} | #{display_b3} | #{display_c3}
+    )
+    puts board
+  end
+
+  def display_a1
+    a1.nil? ? 'a1' : a1.owner
+  end
+
+  def display_a2
+    a2.nil? ? 'a2' : a2.owner
+  end
+
+  def display_a3
+    a3.nil? ? 'a3' : a3.owner
+  end
+
+  def display_b1
+    b1.nil? ? 'b1' : b1.owner
+  end
+
+  def display_b2
+    b2.nil? ? 'b2' : b2.owner
+  end
+
+  def display_b3
+    b3.nil? ? 'b3' : b3.owner
+  end
+
+  def display_c1
+    c1.nil? ? 'c1' : c1.owner
+  end
+
+  def display_c2
+    c2.nil? ? 'c2' : c2.owner
+  end
+
+  def display_c3
+    c3.nil? ? 'c3' : c3.owner
+  end
+end
+
 # This module checks for win condition or draw.
 module Winnable
   def check_for_vertical_win
@@ -103,6 +155,7 @@ end
 # Generate a Tic-Tac-Toe grid to play on.
 class GameBoard
   include Winnable
+  include Displayable
 
   attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
   attr_reader :player
@@ -118,22 +171,6 @@ class GameBoard
     @c2 = nil
     @c3 = nil
     @player = select_random_player
-  end
-
-  # Maybe refactor this into at display module. Also maybe to lower the
-  # ABCs and complexity render each line separate and/or move the ternarys
-  # into a different method.
-  def display_board
-    system 'clear'
-
-    board = %(
-    #{a1.nil? ? 'a1' : a1.owner} | #{b1.nil? ? 'b1' : b1.owner} | #{c1.nil? ? 'c1' : c1.owner}
-    ------------
-    #{a2.nil? ? 'a2' : a2.owner} | #{b2.nil? ? 'b2' : b2.owner} | #{c2.nil? ? 'c2' : c2.owner}
-    ------------
-    #{a3.nil? ? 'a3' : a3.owner} | #{b3.nil? ? 'b3' : b3.owner} | #{c3.nil? ? 'c3' : c3.owner}
-    )
-    puts board
   end
 
   def take_turn
