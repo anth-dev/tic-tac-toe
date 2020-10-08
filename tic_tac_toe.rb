@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-# Generate a gameboard to play on.
+# bugs: We need to make sure the player is entering a valid spot. You can enter
+# c5 or a10 currently and it just goes to the next player.
+
+# Generate a Tic-Tac-Toe grid to play on.
 class GameBoard
   attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
   attr_reader :player
@@ -113,7 +116,8 @@ class GameBoard
 
   def check_for_draw
     return unless a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
-
+    
+    display_board
     puts "It's a draw!"
     exit
   end
@@ -130,7 +134,6 @@ class GameBoard
   end
 end
 
-# Generate a token!
 class Token
   attr_reader :owner
 
