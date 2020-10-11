@@ -2,6 +2,10 @@
 
 require 'pry'
 
+# This refactor of going down the rubocop rabbit hole
+# doubled the code length and was spaghetti. Reverting main
+# and moving this to it's own branch for historical purposes.
+
 # This module handles displaying the game board.
 module Displayable
   def display_board
