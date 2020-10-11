@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# bugs: We need to make sure the player is entering a valid spot. You can enter
-# c5 or a10 currently and it just goes to the next player.
-
 # Generate a Tic-Tac-Toe grid to play on.
 class GameBoard
   attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
@@ -83,35 +80,35 @@ class GameBoard
 
   # Put all the possible win conditions in an if statements.
   def check_for_win
-    if (a1 && a2) && (a2 && a3)
+    if a1 && a2 && a3
       declare_winner(a1.owner) if (a1.owner == a2.owner) && (a2.owner == a3.owner)
     end
 
-    if (b1 && b2) && (b2 && b3)
+    if b1 && b2 && b3
       declare_winner(b1.owner) if (b1.owner == b2.owner) && (b2.owner == b3.owner)
     end
 
-    if (c1 && c2) && (c2 && c3)
+    if c1 && c2 && c3
       declare_winner(c1.owner) if (c1.owner == c2.owner) && (c2.owner == c3.owner)
     end
 
-    if (a1 && b1) && (b1 && c1)
+    if a1 && b1 && c1
       declare_winner(a1.owner) if (a1.owner == b1.owner) && (b1.owner == c1.owner)
     end
 
-    if (a2 && b2) && (b2 && c2)
+    if a2 && b2 && c2
       declare_winner(a2.owner) if (a2.owner == b2.owner) && (b2.owner == c2.owner)
     end
 
-    if (a3 && b3) && (b3 && c3)
+    if a3 && b3 && c3
       declare_winner(a3.owner) if (a3.owner == b3.owner) && (b3.owner == c3.owner)
     end
 
-    if (a1 && b2) && (b2 && c3)
+    if a1 && b2 && c3
       declare_winner(a1.owner) if (a1.owner == b2.owner) && (b2.owner == c3.owner)
     end
 
-    if (a3 && b2) && (b2 && c1)
+    if a3 && b2 && c1
       declare_winner(a3.owner) if (a3.owner == b2.owner) && (b2.owner == c1.owner)
     end
   end
