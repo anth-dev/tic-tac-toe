@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'pry'
+
 # This module handles displaying the game board.
 module Displayable
   def display_board
@@ -161,9 +163,9 @@ module Placeable
     choice = gets.chomp.downcase
     case choice
     when 'a1'
-      check_and_place_a1
+      @a1 = check_and_place(@a1)
     when 'a2'
-      check_and_place_a2
+      @a2 = check_and_place(@a2)
     when 'a3'
       check_and_place_a3
     when 'b1'
@@ -183,6 +185,11 @@ module Placeable
     end
     check_for_win
     check_for_draw
+  end
+
+  # Test using a universal check and place method.
+  def check_and_place(spot)
+    spot.nil? ? Token.new(player) : take_turn
   end
 
   def check_and_place_a1
