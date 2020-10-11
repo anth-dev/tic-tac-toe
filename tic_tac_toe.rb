@@ -66,6 +66,8 @@ class GameBoard
       @c2.nil? ? @c2 = Token.new(player) : take_turn
     when 'c3'
       @c3.nil? ? @c3 = Token.new(player) : take_turn
+    else
+      take_turn
     end
     check_for_win
     check_for_draw
