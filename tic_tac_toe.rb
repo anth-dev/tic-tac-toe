@@ -179,7 +179,7 @@ module Placeable
     when 'c2'
       check_and_place_c2
     when 'c3'
-      check_and_place_c3
+      @c3.nil? ? @c3 = Token.new(player) : take_turn
     else
       take_turn
     end
