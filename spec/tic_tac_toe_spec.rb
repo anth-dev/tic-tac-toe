@@ -6,20 +6,36 @@ describe GameBoard do
   describe '#check_for_win' do
 
     context 'vertical win' do
-      subject(:game_won) { described_class.new }
+      subject(:vertical_win) { described_class.new }
 
       before do
-        game_won.a1 = Token.new('X')
-        game_won.a2 = Token.new('X')
-        game_won.a3 = Token.new('X')
+        vertical_win.a1 = Token.new('X')
+        vertical_win.a2 = Token.new('X')
+        vertical_win.a3 = Token.new('X')
       end
 
       it 'should declare a winner' do
-        allow(game_won).to receive(:display_board)
-        expect(game_won).to receive(:puts).with('X is the winner!')
-        game_won.check_for_win
+        allow(vertical_win).to receive(:display_board)
+        expect(vertical_win).to receive(:puts).with('X is the winner!')
+        vertical_win.check_for_win
       end
     end
-  end
 
+    context 'diagonal win' do
+      subject(:diagonal_win) { described_class.new }
+
+      before do
+        diagonal_win.a1 = Token.new('X')
+        diagonal_win.b2 = Token.new('X')
+        diagonal_win.c3 = Token.new('X')
+      end
+
+      it 'should declare a winner' do
+        allow(diagonal_win).to receive(:display_board)
+        expect(diagonal_win).to receive(:puts).with('X is the winner!')
+        diagonal_win.check_for_win
+      end
+    end
+
+  end
 end
