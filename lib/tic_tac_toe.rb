@@ -2,33 +2,25 @@
 
 # Generate a Tic-Tac-Toe grid to play on.
 class GameBoard
-  attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
+  attr_accessor :board
   attr_reader :player
 
   def initialize
-    @a1 = nil
-    @a2 = nil
-    @a3 = nil
-    @b1 = nil
-    @b2 = nil
-    @b3 = nil
-    @c1 = nil
-    @c2 = nil
-    @c3 = nil
+    @board = Array.new(3) { Array.new(3, nil ) }
     @player = select_random_player
   end
 
   def display_board
     system 'clear'
 
-    board = %(
-    #{a1.nil? ? 'a1' : a1.owner} | #{b1.nil? ? 'b1' : b1.owner} | #{c1.nil? ? 'c1' : c1.owner}
+    board_for_display = %(
+    #{@board[0][2].nil? ? 'a1' : @board[0][2].owner} | #{@board[1][2].nil? ? 'b1' : @board[1][2].owner} | #{@board[2][2].nil? ? 'c1' : @board[2][2].owner}
     ------------
-    #{a2.nil? ? 'a2' : a2.owner} | #{b2.nil? ? 'b2' : b2.owner} | #{c2.nil? ? 'c2' : c2.owner}
+    #{@board[0][1].nil? ? 'a2' : @board[0][1].owner} | #{@board[1][1].nil? ? 'b2' : @board[1][1].owner} | #{@board[2][1].nil? ? 'c2' : @board[2][1].owner}
     ------------
-    #{a3.nil? ? 'a3' : a3.owner} | #{b3.nil? ? 'b3' : b3.owner} | #{c3.nil? ? 'c3' : c3.owner}
+    #{@board[0][0].nil? ? 'a3' : @board[0][0].owner} | #{@board[1][0].nil? ? 'b3' : @board[1][0].owner} | #{@board[2][0].nil? ? 'c3' : @board[2][0].owner}
     )
-    puts board
+    puts board_for_display
   end
 
   def take_turn
@@ -46,23 +38,23 @@ class GameBoard
     choice = gets.chomp.downcase
     case choice
     when 'a1'
-      @a1.nil? ? @a1 = Token.new(player) : take_turn
+      @board[0][2].nil? ? @board[0][2] = Token.new(player) : take_turn
     when 'a2'
-      @a2.nil? ? @a2 = Token.new(player) : take_turn
+      @board[0][1].nil? ? @board[0][1] = Token.new(player) : take_turn
     when 'a3'
-      @a3.nil? ? @a3 = Token.new(player) : take_turn
+      @board[0][0].nil? ? @board[0][0] = Token.new(player) : take_turn
     when 'b1'
-      @b1.nil? ? @b1 = Token.new(player) : take_turn
+      @board[1][2].nil? ? @board[1][2] = Token.new(player) : take_turn
     when 'b2'
-      @b2.nil? ? @b2 = Token.new(player) : take_turn
+      @board[1][1].nil? ? @board[1][1] = Token.new(player) : take_turn
     when 'b3'
-      @b3.nil? ? @b3 = Token.new(player) : take_turn
+      @board[1][0].nil? ? @board[1][0] = Token.new(player) : take_turn
     when 'c1'
-      @c1.nil? ? @c1 = Token.new(player) : take_turn
+      @board[2][2].nil? ? @board[2][2] = Token.new(player) : take_turn
     when 'c2'
-      @c2.nil? ? @c2 = Token.new(player) : take_turn
+      @board[2][1].nil? ? @board[2][1] = Token.new(player) : take_turn
     when 'c3'
-      @c3.nil? ? @c3 = Token.new(player) : take_turn
+      @board[2][0].nil? ? @board[2][0] = Token.new(player) : take_turn
     else
       take_turn
     end
@@ -80,41 +72,41 @@ class GameBoard
 
   # Put all the possible win conditions in an if statements.
   def check_for_win
-    if a1 && a2 && a3
-      declare_winner(a1.owner) if (a1.owner == a2.owner) && (a2.owner == a3.owner)
+    if board[0][2] && board[0][1] && board[0][0]
+      declare_winner(board[0][2].owner) if (board[0][2].owner == board[0][1].owner) && (board[0][1].owner == board[0][0].owner)
     end
 
-    if b1 && b2 && b3
-      declare_winner(b1.owner) if (b1.owner == b2.owner) && (b2.owner == b3.owner)
+    if board[1][2] && board[1][1] && board[1][0]
+      declare_winner(board[1][2].owner) if (board[1][2].owner == board[1][1].owner) && (board[1][1].owner == board[1][0].owner)
     end
 
-    if c1 && c2 && c3
-      declare_winner(c1.owner) if (c1.owner == c2.owner) && (c2.owner == c3.owner)
+    if board[2][2] && board[2][1] && board[2][0]
+      declare_winner(board[2][2].owner) if (board[2][2].owner == board[2][1].owner) && (board[2][1].owner == board[2][0].owner)
     end
 
-    if a1 && b1 && c1
-      declare_winner(a1.owner) if (a1.owner == b1.owner) && (b1.owner == c1.owner)
+    if board[0][2] && board[1][2] && board[2][2]
+      declare_winner(board[0][2].owner) if (board[0][2].owner == board[1][2].owner) && (board[1][2].owner == board[2][2].owner)
     end
 
-    if a2 && b2 && c2
-      declare_winner(a2.owner) if (a2.owner == b2.owner) && (b2.owner == c2.owner)
+    if board[0][1] && board[1][1] && board[2][1]
+      declare_winner(board[0][1].owner) if (board[0][1].owner == board[1][1].owner) && (board[1][1].owner == board[2][1].owner)
     end
 
-    if a3 && b3 && c3
-      declare_winner(a3.owner) if (a3.owner == b3.owner) && (b3.owner == c3.owner)
+    if board[0][0] && board[1][0] && board[2][0]
+      declare_winner(board[0][0].owner) if (board[0][0].owner == board[1][0].owner) && (board[1][0].owner == board[2][0].owner)
     end
 
-    if a1 && b2 && c3
-      declare_winner(a1.owner) if (a1.owner == b2.owner) && (b2.owner == c3.owner)
+    if board[0][2] && board[1][1] && board[2][0]
+      declare_winner(board[0][2].owner) if (board[0][2].owner == board[1][1].owner) && (board[1][1].owner == board[2][0].owner)
     end
 
-    if a3 && b2 && c1
-      declare_winner(a3.owner) if (a3.owner == b2.owner) && (b2.owner == c1.owner)
+    if board[0][0] && board[1][1] && board[2][2]
+      declare_winner(board[0][0].owner) if (board[0][0].owner == board[1][1].owner) && (board[1][1].owner == board[2][2].owner)
     end
   end
 
   def check_for_draw
-    return unless a1 && a2 && a3 && b1 && b2 && b3 && c1 && c2 && c3
+    return unless board[0][2] && board[0][1] && board[0][0] && board[1][2] && board[1][1] && board[1][0] && board[2][2] && board[2][1] && board[2][0]
     
     display_board
     puts "It's a draw!"
@@ -141,5 +133,6 @@ class Token
   end
 end
 
-# my_board = GameBoard.new
-# my_board.take_turn
+my_board = GameBoard.new
+
+my_board.take_turn
