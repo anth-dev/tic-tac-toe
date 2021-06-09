@@ -29,5 +29,14 @@ describe GameBoard do
     
     end
 
+    context 'no win' do
+
+      it 'should not declare a winner' do
+        expect(win_board).not_to receive(:declare_winner)
+        win_board.check_for_win
+      end
+
+    end
+
   end
 end
