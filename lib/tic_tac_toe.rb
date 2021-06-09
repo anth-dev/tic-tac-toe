@@ -133,6 +133,6 @@ class Token
   end
 end
 
-my_board = GameBoard.new
+# my_board = GameBoard.new
 
-my_board.take_turn
+# my_board.take_turn
