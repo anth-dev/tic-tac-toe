@@ -39,4 +39,8 @@ describe GameBoard do
     end
 
   end
+
+  describe '#handle_placement' do
+    subject (:placement_board) { described_class.new }
+  end
 end
