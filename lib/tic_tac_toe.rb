@@ -5,9 +5,9 @@ class GameBoard
   attr_accessor :board
   attr_reader :player
 
-  def initialize
+  def initialize(player = select_random_player)
     @board = Array.new(3) { Array.new(3, nil ) }
-    @player = select_random_player
+    @player = player
   end
 
   def display_board
@@ -133,6 +133,6 @@ class Token
   end
 end
 
-# my_board = GameBoard.new
+my_board = GameBoard.new
 
-# my_board.take_turn
+my_board.take_turn

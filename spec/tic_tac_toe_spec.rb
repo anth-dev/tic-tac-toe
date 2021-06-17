@@ -41,11 +41,14 @@ describe GameBoard do
   end
 
   describe '#handle_placement' do
-    subject(:placement_board) { described_class.new }
+    subject(:placement_board) { described_class.new('X ') }
 
     context 'when a valid selection is given' do
       it 'should place the token' do
-        
+        selection = 'a1'
+        allow(placement_board).to receive(gets).and_return(selection)
+
+        placement_board.handle_placement
       end
     end
   end
