@@ -41,6 +41,12 @@ describe GameBoard do
   end
 
   describe '#handle_placement' do
-    subject (:placement_board) { described_class.new }
+    subject(:placement_board) { described_class.new }
+
+    context 'when a valid selection is given' do
+      it 'should place the token' do
+        
+      end
+    end
   end
 end
