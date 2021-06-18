@@ -54,12 +54,10 @@ describe GameBoard do
 
     context 'when an invalid selection is given' do
       it 'should not place a token' do
-        # This results in an infinite loop with handle_placement calling
-        #   take_turn which in turn calls handle_placement whenever an invalid
-        #   input is entered.
         allow(placement_board).to receive(:player_input).and_return('z5')
+        allow(placement_board).to receive(:take_turn)
         placement_board.handle_placement
-        expect(placement_board[0]).to all( be_nil )
+        expect(placement_board.board[0]).to all( be_nil )
       end
     end
   end
