@@ -42,17 +42,13 @@ describe GameBoard do
 
   describe '#handle_placement' do
     subject(:placement_board) { described_class.new('X ') }
-    let(:x_token) do
-      double('Token', owner: 'X ')
-    end
-
 
     context 'when a valid selection is given' do
       it 'should place the token' do
         
         allow(placement_board).to receive(:player_input).and_return('a1')
-        expect(placement_board.board[0][2]).to_not be_nil
         placement_board.handle_placement
+        expect(placement_board.board[0][2].owner).to eq('X ')
       end
     end
   end
