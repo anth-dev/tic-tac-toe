@@ -58,6 +58,9 @@ describe GameBoard do
         allow(placement_board).to receive(:take_turn)
         placement_board.handle_placement
         expect(placement_board.board[0]).to all( be_nil )
+        expect(placement_board.board[1]).to all( be_nil )
+        expect(placement_board.board[2]).to all( be_nil )
+        
       end
     end
   end
