@@ -35,7 +35,7 @@ class GameBoard
 
   # Make it so it checks if the spot is free.
   def handle_placement
-    choice = gets.chomp.downcase
+    choice = player_input
     case choice
     when 'a1'
       @board[0][2].nil? ? @board[0][2] = Token.new(player) : take_turn
@@ -60,6 +60,10 @@ class GameBoard
     end
     check_for_win
     check_for_draw
+  end
+
+  def player_input
+    gets.chomp.downcase
   end
 
   def swap_players
@@ -133,6 +137,6 @@ class Token
   end
 end
 
-my_board = GameBoard.new
+# my_board = GameBoard.new
 
-my_board.take_turn
+# my_board.take_turn
