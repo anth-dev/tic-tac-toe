@@ -44,7 +44,7 @@ describe GameBoard do
     subject(:placement_board) { described_class.new('X ') }
 
     context 'when a valid selection is given' do
-      it 'place the token' do
+      it 'should place a token' do
         
         allow(placement_board).to receive(:player_input).and_return('a1')
         placement_board.handle_placement
@@ -53,7 +53,7 @@ describe GameBoard do
     end
 
     context 'when an invalid selection is given' do
-      it 'do not place a token' do
+      it 'should not place a token' do
         allow(placement_board).to receive(:player_input).and_return('z5')
         allow(placement_board).to receive(:take_turn)
         placement_board.handle_placement
@@ -63,5 +63,16 @@ describe GameBoard do
         
       end
     end
+
+    context 'when the space is already taken' do
+      it 'should not place a new token' do
+        placement_board.board[0][2] = Token.new('O ')
+        allow(placement_board).to receive(:player_input).and_return('a1')
+        allow(placement_board).to receive(:take_turn)
+        placement_board.handle_placement
+        expect(placement_board.board[0][2].owner).to eq('O ')
+      end
+    end
+
   end
 end
