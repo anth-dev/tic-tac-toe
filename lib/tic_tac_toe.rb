@@ -10,6 +10,22 @@ class GameBoard
     @player = player
   end
 
+
+
+  def take_turn
+    display_board
+    puts "Go Player #{@player}"
+    puts 'Enter the spot to place your token.'
+    print '>'
+    handle_placement
+    swap_players
+    take_turn
+  end
+
+
+
+  private
+
   def display_board
     system 'clear'
 
@@ -23,17 +39,15 @@ class GameBoard
     puts board_for_display
   end
 
-  def take_turn
-    display_board
-    puts "Go Player #{@player}"
-    puts 'Enter the spot to place your token.'
-    print '>'
-    handle_placement
-    swap_players
-    take_turn
+  def swap_players
+    @player = if @player == 'X '
+                'O '
+              else
+                'X '
+              end
   end
 
-  # Make it so it checks if the spot is free.
+    # Make it so it checks if the spot is free.
   def handle_placement
     choice = player_input
     case choice
@@ -64,14 +78,6 @@ class GameBoard
 
   def player_input
     gets.chomp.downcase
-  end
-
-  def swap_players
-    @player = if @player == 'X '
-                'O '
-              else
-                'X '
-              end
   end
 
   # Put all the possible win conditions in an if statements.
@@ -127,6 +133,7 @@ class GameBoard
     result = rand(1..2)
     result == 1 ? 'X ' : 'O '
   end
+
 end
 
 class Token
@@ -137,6 +144,6 @@ class Token
   end
 end
 
-# my_board = GameBoard.new
+my_board = GameBoard.new
 
-# my_board.take_turn
+my_board.take_turn
