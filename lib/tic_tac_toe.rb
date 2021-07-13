@@ -23,9 +23,6 @@ class GameBoard
   end
 
 
-
-  private
-
   def display_board
     system 'clear'
 
