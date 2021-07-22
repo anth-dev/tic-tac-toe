@@ -44,7 +44,7 @@ class GameBoard
               end
   end
 
-    # Make it so it checks if the spot is free.
+    # Will this go in the board or game class????
   def handle_placement
     choice = player_input
     case choice

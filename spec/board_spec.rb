@@ -1,4 +1,4 @@
-require_relative '../lib/tic_tac_toe'
+require_relative '../lib/board'
 
 describe Board do
   
