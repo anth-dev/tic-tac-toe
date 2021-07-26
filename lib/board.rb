@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Board
-  attr_reader :board
+  attr_reader :board, :test_token
 
   def initialize
     @board = Array.new(3) { Array.new(3, nil ) }
+    # the following is to just test token creation temporarily
+    @test_token = Token.new('someone ')
   end
 
   def display_board
@@ -19,5 +21,7 @@ class Board
     )
     puts board_for_display
   end
+
+
 
 end

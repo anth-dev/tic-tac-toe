@@ -44,7 +44,7 @@ class GameBoard
               end
   end
 
-    # Will this go in the board or game class????
+  # Will this go in the board or game class????
   def handle_placement
     choice = player_input
     case choice
