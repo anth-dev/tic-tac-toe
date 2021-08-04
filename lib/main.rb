@@ -7,12 +7,5 @@ require_relative '../lib/token'
 
 # This file will be the script that runs the game.
 
-puts "create a game object"
 my_game = Game.new
-p my_game
-
-puts "create a token"
-my_token = Token.new(my_game.player)
-p my_token
-
-p my_game.test_token
+my_game.take_turn

@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class Board
-  attr_reader :board, :test_token
+  attr_reader :board
 
   def initialize
     @board = Array.new(3) { Array.new(3, nil ) }
-    # the following is to just test token creation temporarily
-    @test_token = Token.new('someone ')
   end
 
   def display_board
@@ -22,6 +20,50 @@ class Board
     puts board_for_display
   end
 
+  def check_for_win
+    if board[0][2] && board[0][1] && board[0][0]
+      declare_winner(board[0][2].owner) if (board[0][2].owner == board[0][1].owner) && (board[0][1].owner == board[0][0].owner)
+    end
 
+    if board[1][2] && board[1][1] && board[1][0]
+      declare_winner(board[1][2].owner) if (board[1][2].owner == board[1][1].owner) && (board[1][1].owner == board[1][0].owner)
+    end
+
+    if board[2][2] && board[2][1] && board[2][0]
+      declare_winner(board[2][2].owner) if (board[2][2].owner == board[2][1].owner) && (board[2][1].owner == board[2][0].owner)
+    end
+
+    if board[0][2] && board[1][2] && board[2][2]
+      declare_winner(board[0][2].owner) if (board[0][2].owner == board[1][2].owner) && (board[1][2].owner == board[2][2].owner)
+    end
+
+    if board[0][1] && board[1][1] && board[2][1]
+      declare_winner(board[0][1].owner) if (board[0][1].owner == board[1][1].owner) && (board[1][1].owner == board[2][1].owner)
+    end
+
+    if board[0][0] && board[1][0] && board[2][0]
+      declare_winner(board[0][0].owner) if (board[0][0].owner == board[1][0].owner) && (board[1][0].owner == board[2][0].owner)
+    end
+
+    if board[0][2] && board[1][1] && board[2][0]
+      declare_winner(board[0][2].owner) if (board[0][2].owner == board[1][1].owner) && (board[1][1].owner == board[2][0].owner)
+    end
+
+    if board[0][0] && board[1][1] && board[2][2]
+      declare_winner(board[0][0].owner) if (board[0][0].owner == board[1][1].owner) && (board[1][1].owner == board[2][2].owner)
+    end
+  end
+
+  def check_for_draw
+    return unless board[0][2] && board[0][1] && board[0][0] && board[1][2] && board[1][1] && board[1][0] && board[2][2] && board[2][1] && board[2][0]
+    
+    display_board
+    puts "It's a draw!"
+    exit
+  end
+
+  def place_token(x, y, token)
+    @board[x][y] = token
+  end
 
 end
