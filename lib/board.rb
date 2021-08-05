@@ -3,8 +3,8 @@
 class Board
   attr_reader :board
 
-  def initialize
-    @board = Array.new(3) { Array.new(3, nil ) }
+  def initialize(board = Array.new(3) { Array.new(3, nil ) } )
+    @board = board
   end
 
   def display_board
@@ -18,6 +18,11 @@ class Board
     #{@board[0][0].nil? ? 'a3' : @board[0][0].owner} | #{@board[1][0].nil? ? 'b3' : @board[1][0].owner} | #{@board[2][0].nil? ? 'c3' : @board[2][0].owner}
     )
     puts board_for_display
+  end
+
+  # change check_for_win to game_won?
+  def game_won?
+    
   end
 
   def check_for_win
