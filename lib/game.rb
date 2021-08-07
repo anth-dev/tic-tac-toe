@@ -3,16 +3,16 @@
 class Game
   attr_reader :player
 
-  def initialize(player = 'X ')
+  def initialize(player = 'X')
     @player = player
     @board = Board.new
   end
 
   def swap_players
-    @player = if @player == 'X '
-      'O '
+    @player = if @player == 'X'
+      'O'
     else
-      'X '
+      'X'
     end
   end
 
