@@ -126,6 +126,17 @@ describe Board do
   end
 
   describe '#game_draw?' do
+
+    context 'when there is a draw' do
+      subject(:board_with_a_draw) { described_class.new( [[test_x_token_for_draw, test_o_token_for_draw, test_x_token_for_draw], [test_o_token_for_draw, test_o_token_for_draw, test_x_token_for_draw], [test_x_token_for_draw, test_x_token_for_draw, test_o_token_for_draw]] ) }
+      let(:test_x_token_for_draw) { double("Token", :owner => 'X') }
+      let(:test_o_token_for_draw) { double("Token", :owner => 'O') }
+
+      it 'should return true' do
+        expect(board_with_a_draw).to be_game_draw
+      end
+    end
+
     
   end
 end
