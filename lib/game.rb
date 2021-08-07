@@ -22,8 +22,8 @@ class Game
     puts 'Enter the spot to place your token.'
     print '>'
     handle_placement
-    @board.check_for_win
-    @board.check_for_draw
+    @board.game_won?
+    @board.game_draw?
     swap_players
     take_turn
   end
