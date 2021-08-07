@@ -59,15 +59,30 @@ describe Board do
     end
 
     context 'when a bottom horizontal win condition has been met' do
+      subject(:board_with_bottom_horizontal_win) { described_class.new( [[test_token_for_bottom_horizontal_win, nil, nil], [test_token_for_bottom_horizontal_win, nil, nil], [test_token_for_bottom_horizontal_win, nil, nil]] ) }
+      let(:test_token_for_bottom_horizontal_win) { double("Token", :owner => 'O') }
 
+      it 'should return true' do
+        expect(board_with_bottom_horizontal_win).to be_game_won
+      end
     end
 
     context 'when a top left to bottom right diagonal win condition has been met' do
+      subject(:board_with_top_left_to_bottom_right_win) { described_class.new ( [[nil, nil, test_token_for_top_left_to_bottom_right_win], [nil, test_token_for_top_left_to_bottom_right_win, nil],[test_token_for_top_left_to_bottom_right_win, nil, nil]] ) }
+      let(:test_token_for_top_left_to_bottom_right_win) { double("Token", :owner => 'X') }
 
+      it 'should return true' do
+        expect(board_with_top_left_to_bottom_right_win).to be_game_won
+      end
     end
 
     context 'when a bottom left to top right diagonal win condition has been met' do
+      subject(:board_with_bottom_left_to_top_right_win) { described_class.new( [[test_token_for_bottom_left_to_top_right_win, nil, nil], [nil, test_token_for_bottom_left_to_top_right_win, nil], [nil, nil, test_token_for_bottom_left_to_top_right_win]] ) }
+      let(:test_token_for_bottom_left_to_top_right_win) { double("Token", :owner => 'O') }
 
+      it 'should return true' do
+        expect(board_with_bottom_left_to_top_right_win).to be_game_won
+      end
     end
   end
 end
