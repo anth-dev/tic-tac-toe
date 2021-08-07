@@ -22,9 +22,42 @@ class Board
 
   # change check_for_win to game_won?
   def game_won?
-    
+    if board[0][2] && board[0][1] && board[0][0]
+      return true if (board[0][2].owner == board[0][1].owner) && (board[0][1].owner == board[0][0].owner)
+    end
+
+    if board[1][2] && board[1][1] && board[1][0]
+      return true if (board[1][2].owner == board[1][1].owner) && (board[1][1].owner == board[1][0].owner)
+    end
+
+    if board[2][2] && board[2][1] && board[2][0]
+      return true if (board[2][2].owner == board[2][1].owner) && (board[2][1].owner == board[2][0].owner)
+    end
+
+    if board[0][2] && board[1][2] && board[2][2]
+      return true if (board[0][2].owner == board[1][2].owner) && (board[1][2].owner == board[2][2].owner)
+    end
+
+    if board[0][1] && board[1][1] && board[2][1]
+      return true if (board[0][1].owner == board[1][1].owner) && (board[1][1].owner == board[2][1].owner)
+    end
+
+    if board[0][0] && board[1][0] && board[2][0]
+      return true if (board[0][0].owner == board[1][0].owner) && (board[1][0].owner == board[2][0].owner)
+    end
+
+    if board[0][2] && board[1][1] && board[2][0]
+      return true if (board[0][2].owner == board[1][1].owner) && (board[1][1].owner == board[2][0].owner)
+    end
+
+    if board[0][0] && board[1][1] && board[2][2]
+      return true if (board[0][0].owner == board[1][1].owner) && (board[1][1].owner == board[2][2].owner)
+    end
+
+    return false
   end
 
+  # TODO: Change check_for_win to instead report who the winner is.
   def check_for_win
     if board[0][2] && board[0][1] && board[0][0]
       declare_winner(board[0][2].owner) if (board[0][2].owner == board[0][1].owner) && (board[0][1].owner == board[0][0].owner)
