@@ -137,6 +137,24 @@ describe Board do
       end
     end
 
+    context 'when there is no draw' do
+      subject(:board_with_no_draw) { described_class.new( [[test_x_token_for_draw, test_x_token_for_draw, test_x_token_for_draw], [test_o_token_for_draw, test_x_token_for_draw, test_o_token_for_draw], [test_o_token_for_draw, test_x_token_for_draw, test_o_token_for_draw]] ) }
+      let(:test_x_token_for_draw) { double("Token", :owner => 'X') }
+      let(:test_o_token_for_draw) { double("Token", :owner => 'O') }
+
+      it 'should return false' do
+        expect(board_with_no_draw).not_to be_game_draw
+      end
+    end
+
+    context "when the board isn't full" do
+      subject(:empty_board) { described_class.new }
+
+      it 'should return false' do
+        expect(empty_board).not_to be_game_draw
+      end
+    end
+
     
   end
 end

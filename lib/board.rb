@@ -91,12 +91,9 @@ class Board
     end
   end
 
-  def game_draw? # the following is the original unmodified check_for_draw method
-    return unless board[0][2] && board[0][1] && board[0][0] && board[1][2] && board[1][1] && board[1][0] && board[2][2] && board[2][1] && board[2][0]
-    
-    display_board
-    puts "It's a draw!"
-    exit
+  def game_draw?
+    return false unless (board[0][2] && board[0][1] && board[0][0] && board[1][2] && board[1][1] && board[1][0] && board[2][2] && board[2][1] && board[2][0]) && (game_won? == false)
+    true
   end
 
   def place_token(x, y, token)
