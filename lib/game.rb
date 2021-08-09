@@ -22,10 +22,20 @@ class Game
     puts 'Enter the spot to place your token.'
     print '>'
     handle_placement
-    @board.game_won?
-    @board.game_draw?
+    announce_winner(@board.return_winner) if @board.game_won?
+    announce_draw if @board.game_draw?
     swap_players
     take_turn
+  end
+
+  def announce_winner(winner)
+    puts "Congratulations #{winner}, you win!"
+    exit
+  end
+
+  def announce_draw
+    puts 'The game is a draw.'
+    exit
   end
 
  
